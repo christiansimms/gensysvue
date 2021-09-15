@@ -5,7 +5,7 @@ export class Entity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: true })
   parent_id?: number;
 
   @Column()
@@ -14,12 +14,12 @@ export class Entity {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   fields?: string; // TODO: Should be JSONB?.
 
-  @Column()
+  @Column({ nullable: true })
   last_updated_by?: number;
 
-  @Column()
+  @Column({ nullable: true })
   last_updated_date?: string; // TODO: should be timestamp
 }
