@@ -6,7 +6,7 @@ export class Entity {
   id: number;
 
   @Column()
-  parent_id: number;
+  parent_id?: number;
 
   @Column()
   type: string;
@@ -15,11 +15,11 @@ export class Entity {
   name: string;
 
   @Column()
-  fields: string; // TODO: Should be JSONB?.
+  fields?: string; // TODO: Should be JSONB?.
 
   @Column()
-  last_updated_by: number;
+  last_updated_by?: number;
 
   @Column()
-  last_updated_date: string; // TODO: should be timestamp
+  last_updated_date?: string; // TODO: should be timestamp
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import {ref} from 'vue'
 
 defineProps<{ msg: string }>()
 
@@ -7,7 +7,11 @@ const count = ref(0)
 </script>
 
 <template>
-  <h1>RegEntity</h1>
+  <h1>Entities</h1>
+  <p>
+    Actions:
+    <router-link to="/reg/entity/add">Add Entity</router-link>
+  </p>
 </template>
 
 <script lang="ts">

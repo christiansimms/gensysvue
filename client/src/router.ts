@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from './components/Home.vue';
 import RegRoot from './components/RegRoot.vue';
 import RegEntity from './components/RegEntity.vue';
+import RegAddEntity from './components/RegAddEntity.vue';
 
 const routes = [
   {
@@ -14,11 +15,8 @@ const routes = [
     name: 'RegRoot',
     component: RegRoot,
     children: [
-      {
-        path: 'entity',
-        name: 'RegEntity',
-        component: RegEntity,
-      },
+      { path: 'entity/add', component: RegAddEntity },
+      { path: 'entity', name: 'RegEntity', component: RegEntity },
     ],
   },
 ];

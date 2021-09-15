@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+import { Post, Put, Delete, Body, Param } from '@nestjs/common';
 import { Entity } from '../entity.entity';
 import { EntityService } from './entity.service';
 
@@ -9,7 +10,24 @@ export class EntityController {
   @Get()
   async index(): Promise<Entity[]> {
     const results = await this.entitysService.findAll();
-    console.log('EntityController', results);
+    console.log('EntityController2', results);
     return results;
+  }
+
+  @Post()
+  async create(@Body() entityData: Entity): Promise<any> {
+    return this.entitysService.create(entityData);
+  }
+
+  @Put(':id/update')
+  async update(@Param('id') id, @Body() entityData: Entity): Promise<any> {
+    entityData.id = Number(id);
+    console.log('Update #' + entityData.id);
+    return this.entitysService.update(entityData);
+  }
+
+  @Delete(':id/delete')
+  async delete(@Param('id') id): Promise<any> {
+    return this.entitysService.delete(id);
   }
 }
