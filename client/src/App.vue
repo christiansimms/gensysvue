@@ -5,7 +5,7 @@ const someObject: Ref<{ banana: string }> = ref({ banana: 'they are good' });
 </script>
 
 <template>
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <router-view/>
 </template>
 
 <style>
