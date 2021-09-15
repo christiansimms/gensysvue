@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import {ref, Ref} from 'vue';
-import HelloWorld from './components/HelloWorld.vue'
-const someObject: Ref<{ banana: string }> = ref({ banana: 'they are good' });
 </script>
 
 <template>
