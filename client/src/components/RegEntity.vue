@@ -10,6 +10,18 @@ const count = ref(0)
   <h1>RegEntity</h1>
 </template>
 
+<script lang="ts">
+import axios from 'axios';
+import {defineComponent} from 'vue';
+
+export default defineComponent({
+  async mounted() {
+    const results = await axios.get('/api/entity')
+    console.log('mounted', results);
+  }
+})
+</script>
+
 <style scoped>
 a {
   color: #42b983;
