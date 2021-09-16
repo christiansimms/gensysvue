@@ -14,6 +14,13 @@ export class EntityController {
     return results;
   }
 
+  @Get(':id')
+  async getOne(@Param('id') id): Promise<Entity> {
+    const results = await this.entitysService.findOne(id);
+    console.log('EntityController3', results);
+    return results;
+  }
+
   @Post()
   async create(@Body() entityData: Entity): Promise<any> {
     return this.entitysService.create(entityData);

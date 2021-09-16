@@ -14,6 +14,10 @@ export class EntityService {
     return await this.entityRepository.find();
   }
 
+  async findOne(id: number): Promise<Entity> {
+    return await this.entityRepository.findOne(id);
+  }
+
   async create(entity: Entity): Promise<Entity> {
     return await this.entityRepository.save(entity);
   }

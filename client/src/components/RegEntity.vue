@@ -23,7 +23,7 @@
       </thead>
       <tbody>
       <tr v-for="row in data">
-        <td><router-link to="/reg/entity/{{row.id}}">{{row.id}}</router-link></td>
+        <td><router-link :to="`/reg/entity/${row.id}`">{{row.id}}</router-link></td>
         <td><router-link to="/reg/entity/{{row.parent_id}}">{{row.parent_id}}</router-link></td>
         <td>{{row.name}}</td>
         <td>{{row.type}}</td>
@@ -63,7 +63,7 @@ export default defineComponent({
   },
   async mounted() {
     const results = await axios.get('/api/entity')
-    console.log('mounted', results);
+    console.log('mounted TODO remove', results);
   }
 })
 </script>
