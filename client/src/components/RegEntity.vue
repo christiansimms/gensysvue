@@ -53,7 +53,17 @@ export default defineComponent({
       fetchData();
     });
 
-    const deleteEntity = function(row) {
+    const deleteEntity = async function(row) {
+      if (confirm('Are you sure?')) {
+        // const objType = row._type;
+        const objId = row.id;
+        if (! objId) {
+          alert('Missing row _type or id');
+        }
+        await axios.delete('/api/entity/' + objId, row);
+        alert('Deleted!');
+        // this.flashService.tellSuccess('Entity deleted');
+      }
     }
 
     return {

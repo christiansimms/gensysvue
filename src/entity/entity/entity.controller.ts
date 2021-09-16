@@ -33,7 +33,7 @@ export class EntityController {
     return this.entitysService.update(entityData);
   }
 
-  @Delete(':id/delete')
+  @Delete(':id')
   async delete(@Param('id') id): Promise<any> {
     return this.entitysService.delete(id);
   }
