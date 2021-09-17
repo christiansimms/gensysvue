@@ -1,6 +1,3 @@
-<script setup lang="ts">
-</script>
-
 <template>
   <h1>Import Data</h1>
 
@@ -10,7 +7,8 @@
 
   <div>
     <div v-for="output in outputs">
-      Step: {{output}}
+      Step:
+      <DisplayData :data="output"/>
     </div>
   </div>
 
@@ -24,8 +22,10 @@
 <script lang="ts">
 import {defineComponent, onMounted, ref} from 'vue';
 import {getProcs, runProcs} from '../composables/TextprocService';
+import DisplayData from './DisplayData.vue';
 
 export default defineComponent({
+  components: {DisplayData},
   setup() {
     const outputs: any[] = ref([]);
 
