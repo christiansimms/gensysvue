@@ -1,8 +1,13 @@
 // Allowed commands.
 import { guessTable } from './dbschema';
-import { dumbSplit, xml2json } from './utils';
+import { deepApply, dumbSplit, xml2json } from './utils';
 
 const commands = {
+  readClipboard: (text: string) => {
+    navigator.clipboard.readText().then((text) => {
+      console.log('Read: ', text);
+    });
+  },
   splitLines: (text: string) => {
     return dumbSplit(text, '\n');
   },
@@ -47,4 +52,29 @@ export function getProcs(): string[] {
     Object.keys(commands),
     Object.keys(nonRecursiveCommands),
   );
+}
+
+export function runProc(input: any, procName: string): any {
+  try {
+    if (procName in commands) {
+      const proc = commands[procName];
+      // return proc(input);
+      return deepApply(input, proc);
+    } else if (procName in nonRecursiveCommands) {
+      const proc = nonRecursiveCommands[procName];
+      return proc(input);
+    }
+  } catch (e) {
+    return 'Error: ' + e.message;
+  }
+}
+
+export function runProcs(input: string, procs: any[]): any {
+  const out = [];
+  let val = input;
+  procs.forEach((proc) => {
+    val = runProc(val, proc);
+    out.push(val);
+  });
+  return out;
 }

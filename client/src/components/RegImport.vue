@@ -17,11 +17,15 @@
 
 <script lang="ts">
 import {defineComponent, onMounted, ref} from 'vue';
-import {getProcs} from '../composables/TextprocService';
+import {getProcs, runProcs} from '../composables/TextprocService';
 
 export default defineComponent({
   setup() {
     const data = ref(null);
+
+    const applyProc = function(procName: string) {
+      const outputs = runProcs('xxx', [procName]);
+    }
 
     const readSpreadsheet = function() {
 
@@ -29,6 +33,7 @@ export default defineComponent({
 
     return {
       data,
+      applyProc,
       readSpreadsheet,
       getProcs,
     };
