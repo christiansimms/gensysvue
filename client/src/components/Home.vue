@@ -5,6 +5,7 @@
   <h1>Home</h1>
 
   <p><router-link to="/reg/entity">View Entities</router-link></p>
+  <p><router-link to="/reg/import">Import Spreadsheet</router-link></p>
 </template>
 
 <style scoped>

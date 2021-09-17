@@ -10,14 +10,12 @@ export class EntityController {
   @Get()
   async index(): Promise<Entity[]> {
     const results = await this.entitysService.findAll();
-    console.log('EntityController2', results);
     return results;
   }
 
   @Get(':id')
   async getOne(@Param('id') id): Promise<Entity> {
     const results = await this.entitysService.findOne(id);
-    console.log('EntityController3', results);
     return results;
   }
 
@@ -29,7 +27,6 @@ export class EntityController {
   @Put(':id/update')
   async update(@Param('id') id, @Body() entityData: Entity): Promise<any> {
     entityData.id = Number(id);
-    console.log('Update #' + entityData.id);
     return this.entitysService.update(entityData);
   }
 

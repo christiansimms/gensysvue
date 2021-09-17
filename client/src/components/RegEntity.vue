@@ -71,10 +71,6 @@ export default defineComponent({
       deleteEntity,
     };
   },
-  async mounted() {
-    const results = await axios.get('/api/entity')
-    console.log('mounted TODO remove', results);
-  }
 })
 </script>
 
