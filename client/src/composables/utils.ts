@@ -41,8 +41,8 @@ export const intrinsicTypes =
         ),
       ),
     )
-    .filter((t) => _global[t])
-    .map((t) => _global[t]);
+    .filter((t: any) => _global[t])
+    .map((t: any) => _global[t]);
 
 // Modify json structure.
 export function deepApply(val: any, fn: any): any {
@@ -64,7 +64,7 @@ export function deepApply(val: any, fn: any): any {
     // Simple type, but not string.
     return val;
   } else {
-    const out = {};
+    const out: any = {};
     for (const prop in val) {
       if (hasOwn(val, prop)) {
         out[prop] = deepApply(val[prop], fn);
@@ -75,7 +75,7 @@ export function deepApply(val: any, fn: any): any {
 }
 
 // Snagged from: https://stackoverflow.com/questions/1773550/convert-xml-to-json-and-back-using-javascript
-export function xml2json(xml: any, { ignoreTags = [] } = {}): any {
+export function xml2json(xml: any, ignoreTags: any[] = []): any {
   const el = xml.nodeType === 9 ? xml.documentElement : xml;
   if (ignoreTags.includes(el.nodeName)) {
     return el;
@@ -88,14 +88,14 @@ export function xml2json(xml: any, { ignoreTags = [] } = {}): any {
     .join('');
   h.attributes = Array.from(el.attributes || [])
     .filter((a) => a)
-    .reduce((hAccumulator, a: any) => {
+    .reduce((hAccumulator: any, a: any) => {
       hAccumulator[a.name] = a.value;
       return hAccumulator;
     }, {});
   h.children = Array.from(el.childNodes || [])
     .filter((n: any) => n.nodeType === 1)
     .map((c: any) => {
-      const r = xml2json(c, { ignoreTags });
+      const r = xml2json(c, ignoreTags);
       // h[c.nodeName] = h[c.nodeName] || r;  // crs took this out -- why was it here?
       return r;
     });
@@ -195,21 +195,21 @@ function regexChunk(lastCat: string, catCount: number): string {
 
 export function fixedSizeRegexFromStr(val: string): string {
   const out = [];
-  let lastCat;
+  let lastCat: string;
   let catCount = 0;
   // for (const char of val) {
   // tslint:disable-next-line:prefer-for-of
   for (let i = 0; i < val.length; i++) {
     const char = val[i];
     const cat = getCharCat(char);
-    if (cat === lastCat) {
+    if (cat === lastCat!) {
       // Keep going.
       ++catCount;
     } else {
       // They are different.
       // Roll up previous.
       if (catCount > 0) {
-        out.push(regexChunk(lastCat, catCount));
+        out.push(regexChunk(lastCat!, catCount));
       }
       catCount = 1;
     }
@@ -217,7 +217,7 @@ export function fixedSizeRegexFromStr(val: string): string {
   }
   // Finish up.
   if (catCount > 0) {
-    out.push(regexChunk(lastCat, catCount));
+    out.push(regexChunk(lastCat!, catCount));
     catCount = 0;
   }
   return out.join('');
