@@ -4,6 +4,10 @@
 <template>
   <h1>Import Data</h1>
 
+  <span v-for="choice in getProcs()">
+    <button class="btn btn-outline-primary" @click="applyProc(choice)">{{choice}}</button>
+  </span>
+
   <button class="btn btn-outline-primary" @click="readSpreadsheet()">Read Spreadsheet from Clipboard</button>
   &nbsp;
   <button class="btn btn-outline-primary" @click="readSample1()">Read Sample Data 1</button>
@@ -12,15 +16,21 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios';
 import {defineComponent, onMounted, ref} from 'vue';
+import {getProcs} from '../composables/TextprocService';
 
 export default defineComponent({
   setup() {
     const data = ref(null);
 
+    const readSpreadsheet = function() {
+
+    }
+
     return {
       data,
+      readSpreadsheet,
+      getProcs,
     };
   },
 })
