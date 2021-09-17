@@ -8,6 +8,12 @@
     <button class="btn btn-outline-primary" @click="applyProc(choice)">{{choice}}</button>
   </span>
 
+  <div>
+    <div v-for="output in outputs">
+      Step: {{output}}
+    </div>
+  </div>
+
   <button class="btn btn-outline-primary" @click="readSpreadsheet()">Read Spreadsheet from Clipboard</button>
   &nbsp;
   <button class="btn btn-outline-primary" @click="readSample1()">Read Sample Data 1</button>
@@ -21,10 +27,11 @@ import {getProcs, runProcs} from '../composables/TextprocService';
 
 export default defineComponent({
   setup() {
-    const data = ref(null);
+    const outputs: any[] = ref([]);
 
-    const applyProc = function(procName: string) {
-      const outputs = runProcs('xxx', [procName]);
+    const applyProc = async function(procName: string) {
+      outputs.value = await runProcs('xxx', [procName]);
+      console.log('outputs:', outputs.value);
     }
 
     const readSpreadsheet = function() {
@@ -32,7 +39,7 @@ export default defineComponent({
     }
 
     return {
-      data,
+      outputs,
       applyProc,
       readSpreadsheet,
       getProcs,

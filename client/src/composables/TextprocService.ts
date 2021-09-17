@@ -2,11 +2,18 @@
 import { guessTable } from './dbschema';
 import { deepApply, dumbSplit, xml2json } from './utils';
 
-const commands = {
-  readClipboard: (text: string) => {
-    navigator.clipboard.readText().then((text) => {
-      console.log('Read: ', text);
-    });
+export type Commands = { [name: string]: (text: any) => any };
+
+const commands: Commands = {
+  readClipboard: async (text: string) => {
+    console.log('readClipboard: starting');
+    const result = await navigator.clipboard.readText();
+    console.log('readClipboard: ', result);
+    return result;
+    // return navigator.clipboard.readText().then((result) => {
+    //   console.log('Read: ', result);
+    //   return result;
+    // });
   },
   splitLines: (text: string) => {
     return dumbSplit(text, '\n');
@@ -34,7 +41,7 @@ const commands = {
   },
 };
 
-const nonRecursiveCommands = {
+const nonRecursiveCommands: Commands = {
   displayAsTable: (val: any) => {
     return {
       _type: 'jsonTable',
@@ -54,27 +61,30 @@ export function getProcs(): string[] {
   );
 }
 
-export function runProc(input: any, procName: string): any {
+export async function runProc(input: any, procName: string): Promise<any> {
   try {
     if (procName in commands) {
       const proc = commands[procName];
-      // return proc(input);
-      return deepApply(input, proc);
+      return await proc(input);
+      // return deepApply(input, proc);
     } else if (procName in nonRecursiveCommands) {
       const proc = nonRecursiveCommands[procName];
-      return proc(input);
+      return await proc(input);
+    } else {
+      return `Did not recognize: ${procName}`;
     }
-  } catch (e) {
+  } catch (e: any) {
     return 'Error: ' + e.message;
   }
 }
 
-export function runProcs(input: string, procs: any[]): any {
-  const out = [];
+export async function runProcs(input: string, procs: any[]): Promise<any[]> {
+  const out: any[] = [];
   let val = input;
-  procs.forEach((proc) => {
-    val = runProc(val, proc);
+  for (const proc of procs) {
+    val = await runProc(val, proc);
     out.push(val);
-  });
+  }
+  console.log('runProcs:', out);
   return out;
 }
