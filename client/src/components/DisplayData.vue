@@ -1,34 +1,28 @@
-<script setup lang="ts">
-</script>
-
 <template>
   <pre>{{ jsonAsString }}</pre>
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType, Ref, ref} from 'vue';
+import {computed, defineComponent, PropType, Ref, toRefs} from 'vue';
 
 export default defineComponent({
   props: {
     data: {
-      type: Object as PropType<unknown>,
+      type: null,
       required: true,
     }
   },
   setup(props) {
-    const jsonAsString: Ref<string> = ref('');
-
-    if (props.data) {
-      if (typeof props.data === 'string') {
-        jsonAsString.value = props.data;
-      } else {
-        jsonAsString.value = JSON.stringify(props.data, undefined, 2);
-        console.log('Converted', props.data, 'to:\n', props.data);
-        // jsonAsString.value = "abc\ndef";
-        // jsonAsString.value = JSON.stringify("abc\ndef", undefined, 2);
-
+    const {data} = toRefs(props);
+    const jsonAsString: Ref<string> = computed(() => {
+      if (data.value) {
+        if (typeof data.value === 'string') {
+          return data.value;
+        } else {
+          return JSON.stringify(data.value, undefined, 2);
+        }
       }
-    }
+    });
 
     return {
       jsonAsString,

@@ -12,11 +12,11 @@
     </div>
   </div>
 
-  <button class="btn btn-outline-primary" @click="readSpreadsheet()">Read Spreadsheet from Clipboard</button>
+  <!-- button class="btn btn-outline-primary" @click="readSpreadsheet()">Read Spreadsheet from Clipboard</button>
   &nbsp;
   <button class="btn btn-outline-primary" @click="readSample1()">Read Sample Data 1</button>
   &nbsp;
-  <button class="btn btn-outline-primary" @click="readSample2()">Read Sample Data 2</button>
+  <button class="btn btn-outline-primary" @click="readSample2()">Read Sample Data 2</button -->
 </template>
 
 <script lang="ts">

@@ -2,18 +2,30 @@
 import { guessTable } from './dbschema';
 import { deepApply, dumbSplit, xml2json } from './utils';
 
+const sample1 = `Log Source Host\tLog Source Type\tLog Source\tLog Message
+DC1-STG01\tTheApp: Flatfile .NET Core\tDC1-STG01 .NET Core Gateway Logs\t{ 'time': '2021-02-16 12:01:00.1564', 'level': 'INFO', 'logger': 'Ocelot.Authorisation.Middleware.AuthorisationMiddleware', 'message': 'requestId: 800001b8-0000-e400-b63f-84710c7967bb, previousRequestId: no previous request id, message: user scopes is authorised calling next authorisation checks' }
+DC1-STG01\tTheApp: Flatfile .NET Core\tDC1-STG01 .NET Core Gateway Logs\t{ 'time': '2021-02-16 12:01:00.1564', 'level': 'INFO', 'logger': 'Ocelot.Authentication.Middleware.AuthenticationMiddleware', 'message': 'requestId: 800001b8-0000-e400-b63f-84710c7967bb, previousRequestId: no previous request id, message: \\/customers\\/84226\\/apps\\/current is an authenticated route. AuthenticationMiddleware checking if client is authenticated' }
+DC1-STG01\tTheApp: Flatfile .NET Core\tDC1-STG01 .NET Core Gateway Logs\t{ 'time': '2021-02-16 12:01:00.1564', 'level': 'INFO', 'logger': 'Ocelot.Authorisation.Middleware.AuthorisationMiddleware', 'message': 'requestId: 800001b8-0000-e400-b63f-84710c7967bb, previousRequestId: no previous request id, message: \\/ezapi\\/PersonalApp\\/v1\\/customers\\/{id} route does not require user to be authorised' }
+DC1-STG01\tTheApp: Flatfile .NET Core\tDC1-STG01 .NET Core Gateway Logs\t{ 'time': '2021-02-16 12:01:00.1564', 'level': 'INFO', 'logger': 'Ocelot.Authorisation.Middleware.AuthorisationMiddleware', 'message': 'requestId: 800001b8-0000-e400-b63f-84710c7967bb, previousRequestId: no previous request id, message: route is authenticated scopes must be checked' }
+DC1-STG01\tTheApp: Flatfile .NET Core\tDC1-STG01 .NET Core Gateway Logs\t{ 'time': '2021-02-16 12:01:00.1552', 'level': 'INFO', 'logger': 'Microsoft.AspNetCore.Hosting.Diagnostics', 'message': 'Request starting HTTP\\/1.1 GET http:\\/\\/stgplgtwy.example.com\\/customers\\/84226\\/apps\\/current  ' }
+DC1-STG01\tTheApp: Flatfile .NET Core\tDC1-STG01 .NET Core Gateway Logs\t{ 'time': '2021-02-16 12:01:00.0995', 'level': 'INFO', 'logger': 'Microsoft.AspNetCore.Hosting.Diagnostics', 'message': 'Request finished in 1158.0783ms 200 application\\/json; charset=UTF-8' }
+`;
+
 export type Commands = { [name: string]: (text: any) => any };
 
 const commands: Commands = {
   readClipboard: async (text: string) => {
-    console.log('readClipboard: starting');
+    // console.log('readClipboard: starting');
     const result = await navigator.clipboard.readText();
-    console.log('readClipboard: ', result);
+    // console.log('readClipboard: ', result);
     return result;
     // return navigator.clipboard.readText().then((result) => {
     //   console.log('Read: ', result);
     //   return result;
     // });
+  },
+  readSample1: (text: string) => {
+    return sample1;
   },
   splitLines: (text: string) => {
     return dumbSplit(text, '\n');
