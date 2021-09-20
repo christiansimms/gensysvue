@@ -5,10 +5,20 @@
     <button class="btn btn-outline-primary" @click="applyProc(choice)">{{choice}}</button>
   </span>
 
-  <div>
-    <div v-for="output in outputs">
-      Step:
-      <DisplayData :data="output"/>
+  <div class="accordion">
+    <div v-for="(output, index) in outputs" class="accordion-item">
+
+        <h2 class="accordion-header" :id="'panelsStayOpen-heading' + index">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" :data-bs-target="'#panelsStayOpen-collapse' + index" aria-expanded="true" :aria-controls="'panelsStayOpen-collapse' + index">
+            Step #{{index}}
+          </button>
+        </h2>
+        <div :id="'panelsStayOpen-collapse' + index" class="accordion-collapse collapse show" :aria-labelledby="'panelsStayOpen-heading' + index">
+          <div class="accordion-body">
+            <DisplayData :data="output"/>
+          </div>
+        </div>
+
     </div>
   </div>
 
