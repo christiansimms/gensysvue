@@ -37,18 +37,20 @@ import DisplayData from './DisplayData.vue';
 export default defineComponent({
   components: {DisplayData},
   setup() {
+    const procs: any[] = ref([]);
     const outputs: any[] = ref([]);
 
     const applyProc = async function(procName: string) {
-      outputs.value = await runProcs('xxx', [procName]);
+      this.procs.push(procName);
+      outputs.value = await runProcs('xxx', this.procs);
       console.log('outputs:', outputs.value);
     }
 
     const readSpreadsheet = function() {
-
     }
 
     return {
+      procs,
       outputs,
       applyProc,
       readSpreadsheet,
