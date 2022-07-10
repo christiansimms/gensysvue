@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import Home from './components/Home.vue';
 import RegImport from './components/RegImport.vue';
 import RegRoot from './components/RegRoot.vue';
@@ -6,7 +6,7 @@ import RegEntity from './components/RegEntity.vue';
 import RegAddEntity from './components/RegAddEntity.vue';
 import RegViewEntity from './components/RegViewEntity.vue';
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'Home',
