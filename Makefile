@@ -13,7 +13,7 @@ client:
 
 .PHONY: server
 server:
-	npm run start:dev
+	cd server && npm run start:dev
 
 #importdb:
 #	docker exec -i psqlserver psql -h localhost -U postgres --dbname=postgres < db/gensys.ddl
